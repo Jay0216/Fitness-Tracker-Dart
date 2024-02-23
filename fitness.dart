@@ -1,1 +1,3 @@
-class Fiteness {}
+class Fiteness {
+  
+}

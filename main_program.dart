@@ -4,7 +4,7 @@ import 'user.dart';
 void main() {
   welcomeNote();
 
-  appMenu();
+  appmainMenu();
 }
 
 void welcomeNote() {
@@ -18,7 +18,7 @@ void welcomeNote() {
   print("-- Let's Get Started --");
 }
 
-void appMenu() {
+void appmainMenu() {
   print("");
 
   int menu_counter = 0;
@@ -50,6 +50,9 @@ void appMenu() {
     print("Wrong Input");
   }
 }
+
+
+
 
 
 //for the data store use files and manipulate the files use file handling in dart
