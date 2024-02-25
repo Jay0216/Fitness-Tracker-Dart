@@ -39,12 +39,38 @@ void appmainMenu() {
   if (user_menu_input == "1") {
     print("Create a Account Selected");
 
+    print("");
+
     User user = User();
+
+    print("Set a Username : ");
+    String? username_signup = stdin.readLineSync();
+
+    print("Set a Password : ");
+    String? password_signup = stdin.readLineSync();
+
+    print("Enter your age : ");
+    int? age_signup = stdin.readByteSync();
+
+    user.username = username_signup;
+    user.password = password_signup;
+    user.age = age_signup;
+
     user.Signup();
   } else if (user_menu_input == "2") {
     print("Login to Account Selected");
 
     User user = User();
+
+    print("Enter Username : ");
+    String? username_login = stdin.readLineSync();
+
+    print("Enter Password : ");
+    String? password_login = stdin.readLineSync();
+
+    user.username = username_login;
+    user.password = password_login;
+
     user.Login();
   } else {
     print("Wrong Input");
@@ -56,6 +82,8 @@ void appmainMenu() {
 
 
 //for the data store use files and manipulate the files use file handling in dart
+
+//need to apply data structures and sorting algorithms and searching alogrithms to the project
 
 
 

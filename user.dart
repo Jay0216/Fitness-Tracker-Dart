@@ -1,20 +1,73 @@
+import "dart:io";
+import "dart:math";
+import "dart:convert";
+
 class User {
   String? username;
   String? password;
   int? age;
 
-  void Login() {
+  void Login() async {
     print("Login Feature for User");
 
-    //if username == input_username && password == input_password
-    //void userMenu()
-    //keep repeating the user login form using while loop
+    //String? username_login = stdin.readLineSync();
+    //String? password_login = stdin.readLineSync();
 
-    _userMenu();
+    final file_path = File(
+        'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${username}.txt');
+
+    Stream<String> read_lines = file_path.openRead().transform(utf8.decoder);
+
+    var read_data;
+    try {
+      await for (var lines in read_lines) {
+        //print(lines);
+
+        read_data = lines;
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    String data_lines = read_data.toString();
+
+    var data_array = [];
+
+    data_array = data_lines.split(" ");
+
+    String file_username = data_array[0];
+    String file_password = data_array[1];
+
+    if (file_username == username && file_password == password) {
+      print("Login success");
+
+      _userMenu();
+    } else {
+      print("Login Failed");
+    }
+
+    //if (username == username_login && password == password_login) {
+    //print("Login Success");
+
+    //_userMenu();
+    //} else {
+    //print("Login Failed");
+    //}
   }
 
-  void Signup() {
+  void Signup() async {
     print("Signup Feature for users");
+
+    final file_create_path =
+        'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${username}.txt';
+
+    File(file_create_path).create(recursive: true);
+
+    //write in a file the user data
+
+    String data = '${username} ${password} ${age}';
+
+    var file = await File(file_create_path).writeAsString(data);
   }
 
   // ignore: unused_element
