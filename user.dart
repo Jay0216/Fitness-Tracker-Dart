@@ -2,10 +2,20 @@ import "dart:io";
 import "dart:math";
 import "dart:convert";
 
-class User {
+import 'navigations.dart';
+import 'nutritions.dart';
+import 'workout_plans.dart';
+
+class GymUser {
+  String? name;
+  String? age;
+
   String? username;
-  String? password;
-  int? age;
+  String? _password;
+
+  void setPassword(String? password) {
+    _password = password;
+  }
 
   void Login() async {
     print("Login Feature for User");
@@ -38,21 +48,18 @@ class User {
     String file_username = data_array[0];
     String file_password = data_array[1];
 
-    if (file_username == username && file_password == password) {
-      print("Login success");
+    if (file_username == username && file_password == _password) {
+      print("Login Success");
+      Navigations navigations = Navigations();
 
-      _userMenu();
-    } else {
+      navigations.userDashboardUI();
+    } else if (file_username != username && file_password != _password) {
       print("Login Failed");
+
+      Navigations navigations = Navigations();
+
+      navigations.LoginUI();
     }
-
-    //if (username == username_login && password == password_login) {
-    //print("Login Success");
-
-    //_userMenu();
-    //} else {
-    //print("Login Failed");
-    //}
   }
 
   void Signup() async {
@@ -65,24 +72,32 @@ class User {
 
     //write in a file the user data
 
-    String data = '${username} ${password} ${age}';
+    String data = '${username} ${_password} ${age}';
 
     var file = await File(file_create_path).writeAsString(data);
   }
 
-  // ignore: unused_element
-  void _userMenu() {
-    print("");
-    print("User Menu Portal");
+  void createNutritionPlans() {
+    Nutritions nutritions = Nutritions();
 
-    var user_menu = [
-      "1. Create a Workout Plan",
-      "2. Set Fitness Goals",
-      "3. Add a Nutrition List"
-    ];
+    nutritions.setPlan();
+  }
 
-    for (var menu in user_menu) {
-      print(menu);
-    }
+  void createWorkoutPlans() {
+    Workouts workouts = Workouts();
+
+    workouts.setPlan();
+  }
+
+  void updateNutritionPlan() {
+    Nutritions nutritions = Nutritions();
+
+    nutritions.updatePlan();
+  }
+
+  void updateWorkoutPlan() {
+    Workouts workouts = Workouts();
+
+    workouts.updatePlan();
   }
 }

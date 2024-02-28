@@ -1,5 +1,5 @@
 abstract class ManagePlans {
-  void createPlan();
+  void setPlan();
 
   void updatePlan();
 }

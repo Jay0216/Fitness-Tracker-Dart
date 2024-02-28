@@ -6,12 +6,16 @@ class Nutritions implements ManagePlans {
   String? duration;
 
   @override
-  void createPlan() {
+  void setPlan() {
     print("Create your nutrition plan");
   }
 
   @override
   void updatePlan() {
     print("Update your nutrition Plan");
+  }
+
+  void nutritionsPlan() {
+    print("This is Your Nutrition List");
   }
 }

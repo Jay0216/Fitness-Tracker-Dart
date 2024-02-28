@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'navigations.dart';
 import 'user.dart';
 
 void main() {
@@ -41,37 +42,15 @@ void appmainMenu() {
 
     print("");
 
-    User user = User();
+    Navigations navigations = Navigations();
 
-    print("Set a Username : ");
-    String? username_signup = stdin.readLineSync();
-
-    print("Set a Password : ");
-    String? password_signup = stdin.readLineSync();
-
-    print("Enter your age : ");
-    int? age_signup = stdin.readByteSync();
-
-    user.username = username_signup;
-    user.password = password_signup;
-    user.age = age_signup;
-
-    user.Signup();
+    navigations.SignupUI();
   } else if (user_menu_input == "2") {
     print("Login to Account Selected");
 
-    User user = User();
+    Navigations navigations = Navigations();
 
-    print("Enter Username : ");
-    String? username_login = stdin.readLineSync();
-
-    print("Enter Password : ");
-    String? password_login = stdin.readLineSync();
-
-    user.username = username_login;
-    user.password = password_login;
-
-    user.Login();
+    navigations.LoginUI();
   } else {
     print("Wrong Input");
   }

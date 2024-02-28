@@ -7,7 +7,7 @@ class Workouts implements ManagePlans {
   int? reps;
 
   @override
-  void createPlan() {
+  void setPlan() {
     print("create a workout plan");
   }
 
