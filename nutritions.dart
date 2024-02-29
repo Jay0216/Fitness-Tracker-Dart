@@ -1,21 +1,12 @@
-import 'manage_plans.dart';
+import 'abstract_classes.dart';
 
-class Nutritions implements ManagePlans {
+class Nutritions extends ManagePlans {
   late String nutrition_name;
   late String food_name;
   String? duration;
 
   @override
-  void setPlan() {
-    print("Create your nutrition plan");
-  }
-
-  @override
-  void updatePlan() {
-    print("Update your nutrition Plan");
-  }
-
-  void nutritionsPlan() {
-    print("This is Your Nutrition List");
+  void viewPlans(String? data_id) {
+    print("Viewing Nutrition Plans");
   }
 }

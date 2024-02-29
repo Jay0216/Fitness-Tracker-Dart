@@ -2,11 +2,12 @@ import "dart:io";
 import "dart:math";
 import "dart:convert";
 
+import 'abstract_classes.dart';
 import 'navigations.dart';
 import 'nutritions.dart';
 import 'workout_plans.dart';
 
-class GymUser {
+class GymUser extends ManageUserInteractions {
   String? name;
   String? age;
 
@@ -78,26 +79,30 @@ class GymUser {
   }
 
   void createNutritionPlans() {
-    Nutritions nutritions = Nutritions();
-
-    nutritions.setPlan();
+    print("Create a Nutrition Plan");
   }
 
   void createWorkoutPlans() {
-    Workouts workouts = Workouts();
-
-    workouts.setPlan();
+    print("Create a Workout Plan");
   }
 
   void updateNutritionPlan() {
-    Nutritions nutritions = Nutritions();
-
-    nutritions.updatePlan();
+    print("Update Nutrition Plan");
   }
 
   void updateWorkoutPlan() {
+    print("Update Workout Plan");
+  }
+
+  void getNutritionsList() {
+    Nutritions nutritions = Nutritions();
+
+    nutritions.viewPlans(username);
+  }
+
+  void getWorkoutList() {
     Workouts workouts = Workouts();
 
-    workouts.updatePlan();
+    workouts.viewPlans(username);
   }
 }

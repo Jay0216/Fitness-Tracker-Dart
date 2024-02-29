@@ -1,8 +1,63 @@
 import 'dart:io';
 import 'nutritions.dart';
 import 'user.dart';
+import 'workout_plans.dart';
 
 class Navigations {
+  void mainUI() {
+    welcomeNote();
+
+    appmainMenu();
+  }
+
+  void welcomeNote() {
+    print("");
+
+    print("------------- Fitness Academy Build Your Dream ----------------");
+
+    print("");
+    print("");
+
+    print("-- Let's Get Started --");
+  }
+
+  void appmainMenu() {
+    print("");
+
+    int menu_counter = 0;
+
+    var menu = ["1. Create a Account", "2. Login to Account"];
+
+    while (menu_counter <= 1) {
+      print(menu[menu_counter]);
+
+      menu_counter++;
+    }
+    print("");
+
+    print("Select Menu : ");
+
+    String? user_menu_input = stdin.readLineSync();
+
+    if (user_menu_input == "1") {
+      print("Create a Account Selected");
+
+      print("");
+
+      Navigations navigations = Navigations();
+
+      navigations.SignupUI();
+    } else if (user_menu_input == "2") {
+      print("Login to Account Selected");
+
+      Navigations navigations = Navigations();
+
+      navigations.LoginUI();
+    } else {
+      print("Wrong Input");
+    }
+  }
+
   void LoginUI() {
     print("Login UI");
 
@@ -67,15 +122,56 @@ class Navigations {
     print("");
     print("Select menu number : ");
     String? gym_user_choice = stdin.readLineSync();
+
+    if (gym_user_choice == "1") {
+      WorkoutUI();
+    } else if (gym_user_choice == "6") {
+      NutritionUI();
+    } else if (gym_user_choice == "2") {
+      GoalsUI();
+    }
   }
 
-  void NutrionUI() {
+  void NutritionUI() {
     print("Your Nutritions is Here");
 
+    var nutrition_menu = [
+      "1. Add New Nutritions.",
+      "2. Update Nutritions List",
+      "3. View Nutrition Existing Plans"
+    ];
+
+    print("");
+
+    print("What do you want to do : ");
+    String? nutrition_plan_manage = stdin.readLineSync();
+
+    if (nutrition_plan_manage == "3") {
+      GymUser user = GymUser();
+
+      user.getNutritionsList();
+    } else if (nutrition_plan_manage == "1") {
+      GymUser user = GymUser();
+
+      user.createNutritionPlans();
+    } else if (nutrition_plan_manage == "2") {
+      GymUser user = GymUser();
+
+      user.updateNutritionPlan();
+    }
+
     //Nutrition Feature Access Menu()
+  }
 
-    Nutritions nutritions = Nutritions();
+  void WorkoutUI() {
+    print("This is your Workout plan");
 
-    nutritions.nutritionsPlan();
+    GymUser user = GymUser();
+
+    user.getWorkoutList();
+  }
+
+  void GoalsUI() {
+    print("This is Your Goals List");
   }
 }

@@ -6,4 +6,8 @@ class Goals {
   void setGoals() {
     print("Set a Goal for acheveing it");
   }
+
+  void viewGoals() {
+    print("Your Goals List");
+  }
 }

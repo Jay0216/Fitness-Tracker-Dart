@@ -1,18 +1,13 @@
-import 'manage_plans.dart';
+import 'abstract_classes.dart';
 
-class Workouts implements ManagePlans {
+class Workouts extends ManagePlans {
   String? w_name;
   String? body_part;
   int? sets;
   int? reps;
 
   @override
-  void setPlan() {
-    print("create a workout plan");
-  }
-
-  @override
-  void updatePlan() {
-    print("Update your workout plan");
+  void viewPlans(String? data_id) {
+    print("View Workouts Plans");
   }
 }
