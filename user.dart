@@ -1,7 +1,6 @@
 import "dart:io";
 import "dart:math";
 import "dart:convert";
-
 import 'abstract_classes.dart';
 import 'navigations.dart';
 import 'nutritions.dart';
@@ -73,13 +72,29 @@ class GymUser extends ManageUserInteractions {
 
     //write in a file the user data
 
-    String data = '${username} ${_password} ${age}';
+    String data = '${username} ${_password} ${age} ';
 
     var file = await File(file_create_path).writeAsString(data);
   }
 
-  void createNutritionPlans() {
+  void createNutritionPlans(
+      var user_id, var food_name, var nutrition, var duration) async {
     print("Create a Nutrition Plan");
+
+    Nutritions nutritions = Nutritions();
+
+    nutritions.food_name = food_name;
+    nutritions.nutrition_name = nutrition;
+    nutritions.duration = duration;
+
+    final data_file_path =
+        'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${user_id}.txt';
+
+    String? nutrition_plan_details =
+        '${nutritions.food_name} ${nutritions.nutrition_name} ${nutritions.duration}';
+
+    var file = await File(data_file_path)
+        .writeAsString(nutrition_plan_details, mode: FileMode.append);
   }
 
   void createWorkoutPlans() {

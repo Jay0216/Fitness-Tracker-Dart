@@ -125,7 +125,7 @@ class Navigations {
 
     if (gym_user_choice == "1") {
       WorkoutUI();
-    } else if (gym_user_choice == "6") {
+    } else if (gym_user_choice == "3") {
       NutritionUI();
     } else if (gym_user_choice == "2") {
       GoalsUI();
@@ -141,6 +141,10 @@ class Navigations {
       "3. View Nutrition Existing Plans"
     ];
 
+    for (var n_menu in nutrition_menu) {
+      print(n_menu);
+    }
+
     print("");
 
     print("What do you want to do : ");
@@ -153,11 +157,31 @@ class Navigations {
     } else if (nutrition_plan_manage == "1") {
       GymUser user = GymUser();
 
-      user.createNutritionPlans();
+      print("");
+      print("Enter Food Name : ");
+      var food_name = stdin.readLineSync();
+
+      print("");
+      print("Enter Nutrition Name : ");
+      var nutrition_name = stdin.readLineSync();
+
+      print("");
+      print("Enter Duration of the Plan : ");
+      var duration = stdin.readLineSync();
+
+      print("");
+      print("Verify your username : ");
+      var user_id = stdin.readLineSync();
+
+      user.createNutritionPlans(user_id, food_name, nutrition_name, duration);
     } else if (nutrition_plan_manage == "2") {
       GymUser user = GymUser();
 
       user.updateNutritionPlan();
+    } else if (nutrition_plan_manage == "3") {
+      GymUser user = GymUser();
+
+      user.getNutritionsList();
     }
 
     //Nutrition Feature Access Menu()
