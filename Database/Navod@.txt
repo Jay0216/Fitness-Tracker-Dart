@@ -1,1 +1,2 @@
-Navod@ navod1234 20 Chicken Protien 30 days
+Navod@ navod1234 20
+Chicken Protein 30 days

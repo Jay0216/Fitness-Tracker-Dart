@@ -72,9 +72,8 @@ class GymUser extends ManageUserInteractions {
 
     //write in a file the user data
 
-    String data = '${username} ${_password} ${age} ';
-
-    var file = await File(file_create_path).writeAsString(data);
+    var file = await File(file_create_path)
+        .writeAsString('${username} ${_password} ${age}\n');
   }
 
   void createNutritionPlans(
@@ -90,11 +89,11 @@ class GymUser extends ManageUserInteractions {
     final data_file_path =
         'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${user_id}.txt';
 
-    String? nutrition_plan_details =
-        '${nutritions.food_name} ${nutritions.nutrition_name} ${nutritions.duration}';
+    ;
 
-    var file = await File(data_file_path)
-        .writeAsString(nutrition_plan_details, mode: FileMode.append);
+    var file = await File(data_file_path).writeAsString(
+        '${nutritions.food_name} ${nutritions.nutrition_name} ${nutritions.duration}\n',
+        mode: FileMode.append);
   }
 
   void createWorkoutPlans() {
