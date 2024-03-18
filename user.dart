@@ -1,3 +1,4 @@
+import 'dart:developer';
 import "dart:io";
 import "dart:math";
 import "dart:convert";
@@ -36,7 +37,7 @@ class GymUser extends ManageUserInteractions {
         read_data = lines;
       }
     } catch (e) {
-      print(e);
+      print("Your Database ID was Incorrect");
     }
 
     String data_lines = read_data.toString();
@@ -73,12 +74,42 @@ class GymUser extends ManageUserInteractions {
     //write in a file the user data
 
     var file = await File(file_create_path)
-        .writeAsString('${username} ${_password} ${age}\n');
+        .writeAsString('${username} ${_password} ${age}\n'
+            '                                      \n'
+            '                                      \n'
+            '                                      \n'
+            '                                      \n'
+            '                                      \n'
+            'Nutrition Plans\n'
+            '                                      \n'
+            'Workout Plans\n');
+
+    //when a new user signed up arrange the file area like(nutrition plans and for the workout plans)
   }
 
   void createNutritionPlans(
       var user_id, var food_name, var nutrition, var duration) async {
     print("Create a Nutrition Plan");
+
+    final data_file_path = File(
+        'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${user_id}.txt');
+
+    ;
+
+    Stream<String> readed_file_data = data_file_path
+        .openRead()
+        .transform(utf8.decoder)
+        .transform(LineSplitter());
+
+    List<String> all_data = [];
+
+    await for (final file_data in readed_file_data) {
+      all_data.add(file_data);
+    }
+
+    print(all_data);
+
+    // use a array for this getting file data as a array and update like array
 
     Nutritions nutritions = Nutritions();
 
@@ -86,18 +117,46 @@ class GymUser extends ManageUserInteractions {
     nutritions.nutrition_name = nutrition;
     nutritions.duration = duration;
 
-    final data_file_path =
-        'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${user_id}.txt';
+    String nutrition_list =
+        nutritions.food_name + nutritions.nutrition_name + nutritions.duration;
 
-    ;
+    all_data.insert(8, nutrition_list);
 
-    var file = await File(data_file_path).writeAsString(
-        '${nutritions.food_name} ${nutritions.nutrition_name} ${nutritions.duration}\n',
-        mode: FileMode.append);
+    print(all_data);
+
+    var nutritions_data = all_data.join('\n');
+
+    await data_file_path.writeAsString(nutritions_data);
+
+    // file nutrition data arrangement is done
+
+    //print(line_num);
+
+    // find the Nutrition plan area and Workout Plan Area between write the nutritions plan.
+
+    //var file = await data_file_path.writeAsString(
+    //'${nutritions.food_name} ${nutritions.nutrition_name} ${nutritions.duration}\n',
+    //mode: FileMode.append);
   }
 
-  void createWorkoutPlans() {
+  void createWorkoutPlans(
+      var user_id, var workout_name, var body_part, var sets, var reps) async {
     print("Create a Workout Plan");
+
+    Workouts workouts = Workouts();
+
+    workouts.w_name = workout_name;
+    workouts.body_part = body_part;
+    workouts.sets = sets;
+    workouts.reps = reps;
+
+    final workout_data_file =
+        'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${user_id}.txt';
+
+    var file = await File(workout_data_file).writeAsString(
+        'Workout Plan\n'
+        '${workouts.w_name} ${workouts.body_part} ${workouts.sets} ${workouts.reps}\n',
+        mode: FileMode.append);
   }
 
   void updateNutritionPlan() {

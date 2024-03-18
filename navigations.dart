@@ -132,7 +132,7 @@ class Navigations {
     }
   }
 
-  void NutritionUI() {
+  void NutritionUI() async {
     print("Your Nutritions is Here");
 
     var nutrition_menu = [
@@ -151,7 +151,13 @@ class Navigations {
     String? nutrition_plan_manage = stdin.readLineSync();
 
     if (nutrition_plan_manage == "3") {
+      print("");
+      print("Enter Your Database ID : ");
+      var database_id = stdin.readLineSync();
+
       GymUser user = GymUser();
+
+      user.username = database_id;
 
       user.getNutritionsList();
     } else if (nutrition_plan_manage == "1") {
