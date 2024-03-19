@@ -143,6 +143,21 @@ class GymUser extends ManageUserInteractions {
       var user_id, var workout_name, var body_part, var sets, var reps) async {
     print("Create a Workout Plan");
 
+    final data_file_path = File(
+        'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${user_id}.txt');
+
+    ;
+    Stream<String> readed_file_data = data_file_path
+        .openRead()
+        .transform(utf8.decoder)
+        .transform(LineSplitter());
+
+    List<String> all_data = [];
+
+    await for (final file_data in readed_file_data) {
+      all_data.add(file_data);
+    }
+
     Workouts workouts = Workouts();
 
     workouts.w_name = workout_name;
@@ -150,13 +165,18 @@ class GymUser extends ManageUserInteractions {
     workouts.sets = sets;
     workouts.reps = reps;
 
-    final workout_data_file =
-        'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${user_id}.txt';
+    String workout_plan_list = workouts.w_name.toString() +
+        workouts.body_part.toString() +
+        workouts.sets.toString() +
+        workouts.reps.toString();
 
-    var file = await File(workout_data_file).writeAsString(
-        'Workout Plan\n'
-        '${workouts.w_name} ${workouts.body_part} ${workouts.sets} ${workouts.reps}\n',
-        mode: FileMode.append);
+    //print(all_data);
+
+    all_data.insert(13, workout_plan_list);
+
+    var workout_data = all_data.join('\n');
+
+    await data_file_path.writeAsString(workout_data);
   }
 
   void updateNutritionPlan() {

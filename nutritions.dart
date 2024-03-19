@@ -22,19 +22,21 @@ class Nutritions extends ManagePlans {
 
     var n_data;
 
-    List<String> nutritions_data_array = [];
+    List<String> all_data_array = [];
 
     try {
       await for (var nutrition_data in read_data_ar) {
         n_data = nutrition_data;
 
-        nutritions_data_array.add(nutrition_data);
+        all_data_array.add(nutrition_data);
       }
     } catch (e) {
       print(e);
     }
 
     String data_lines = n_data.toString();
+
+    List<String> nutritions_data_array = [];
 
     // you need to add sorting algorithm to sort nutritions based on added time
 

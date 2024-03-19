@@ -196,9 +196,50 @@ class Navigations {
   void WorkoutUI() {
     print("This is your Workout plan");
 
-    GymUser user = GymUser();
+    var workout_menu = [
+      "1. Add New Workout Plans.",
+      "2. Update Workout Plans",
+      "3. View Existing Workout Plans"
+    ];
 
-    user.getWorkoutList();
+    for (var w_menu in workout_menu) {
+      print(w_menu);
+    }
+
+    print("");
+
+    print("What do you want to do : ");
+    String? workout_plan_manage = stdin.readLineSync();
+
+    if (workout_plan_manage == '1') {
+      GymUser user = GymUser();
+
+      print("");
+      print("Enter Workout Plan Name : ");
+      var w_name = stdin.readLineSync();
+
+      print("");
+      print("Enter Body Part Name : ");
+      var body_part = stdin.readLineSync();
+
+      print("");
+      print("Enter Sets of Plan : ");
+      var sets = stdin.readLineSync();
+
+      print("");
+      print("Enter Reps of Plan : ");
+      var reps = stdin.readLineSync();
+
+      print("");
+      print("Verify your username : ");
+      var user_id = stdin.readLineSync();
+
+      user.createWorkoutPlans(user_id, w_name, body_part, sets, reps);
+    } else if (workout_plan_manage == '3') {
+      GymUser user = GymUser();
+
+      user.getWorkoutList();
+    }
   }
 
   void GoalsUI() {
