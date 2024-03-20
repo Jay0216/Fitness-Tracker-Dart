@@ -9,7 +9,8 @@ abstract class ManageUserInteractions {
 
   void Signup();
 
-  void createNutritionPlans(var user_id, var food_name, var nutrition, var duration);
+  void createNutritionPlans(
+      var user_id, var food_name, var nutrition, var duration);
 
   void updateNutritionPlan();
 

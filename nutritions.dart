@@ -36,13 +36,17 @@ class Nutritions extends ManagePlans {
 
     String data_lines = n_data.toString();
 
-    List<String> nutritions_data_array = [];
-
     // you need to add sorting algorithm to sort nutritions based on added time
 
-    nutritions_data_array.forEach((data) {
-      print(data);
+    var nutritions = all_data_array.getRange(8, 12);
+
+    List<String> nutritions_data_array = nutritions.toList();
+
+    nutritions_data_array.forEach((element) {
+      print(element);
     });
+
+    //print(nutritions);
 
     //data_array.insert(1, "Hello test");
 

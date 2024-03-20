@@ -17,6 +17,8 @@ void main() {
 //need to apply data structures and sorting algorithms and searching alogrithms to the project
 
 
+// need to add constructor oop concept (2024/03/20)
+
 // applied poloymorphism and encapsulation concepts.
 
-// need to apply abstraction and inheritance concepts
+// need to apply abstraction and inheritance concepts.
