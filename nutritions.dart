@@ -38,7 +38,9 @@ class Nutritions extends ManagePlans {
 
     // you need to add sorting algorithm to sort nutritions based on added time
 
-    var nutritions = all_data_array.getRange(8, 12);
+    // find the first nutrition plan index and last nutrition plan index and apply to the getrange function(method)
+
+    var nutritions = all_data_array.getRange(7, 11);
 
     List<String> nutritions_data_array = nutritions.toList();
 

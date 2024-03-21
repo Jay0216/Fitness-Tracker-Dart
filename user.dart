@@ -3,6 +3,7 @@ import "dart:io";
 import "dart:math";
 import "dart:convert";
 import 'abstract_classes.dart';
+import 'goals.dart';
 import 'navigations.dart';
 import 'nutritions.dart';
 import 'workout_plans.dart';
@@ -75,14 +76,19 @@ class GymUser extends ManageUserInteractions {
 
     var file = await File(file_create_path)
         .writeAsString('${username} ${_password} ${age}\n'
-            '                                      \n'
-            '                                      \n'
-            '                                      \n'
-            '                                      \n'
-            '                                      \n'
+            '\n'
+            '\n'
+            '\n'
+            '\n'
+            '\n'
             'Nutrition Plans\n'
-            '                                      \n'
-            'Workout Plans\n');
+            '\n'
+            '\n'
+            'Workout Plans\n'
+            '\n'
+            '\n');
+
+    //put workout plans data between the last space and workout plans title
 
     //when a new user signed up arrange the file area like(nutrition plans and for the workout plans)
   }
@@ -118,9 +124,9 @@ class GymUser extends ManageUserInteractions {
     nutritions.duration = duration;
 
     String nutrition_list =
-        nutritions.food_name + nutritions.nutrition_name + nutritions.duration;
+        '${nutritions.food_name} ${nutritions.nutrition_name} ${nutritions.duration}';
 
-    all_data.insert(8, nutrition_list);
+    all_data.insert(7, nutrition_list);
 
     print(all_data);
 
@@ -128,7 +134,7 @@ class GymUser extends ManageUserInteractions {
 
     await data_file_path.writeAsString(nutritions_data);
 
-    // file nutrition data arrangement is done
+    //file nutrition data arrangement is done
 
     //print(line_num);
 
@@ -165,14 +171,19 @@ class GymUser extends ManageUserInteractions {
     workouts.sets = sets;
     workouts.reps = reps;
 
-    String workout_plan_list = workouts.w_name.toString() +
-        workouts.body_part.toString() +
-        workouts.sets.toString() +
-        workouts.reps.toString();
+    String workout_plan_list =
+        '${workouts.w_name.toString()} ${workouts.body_part.toString()} ${workouts.sets.toString()} ${workouts.reps.toString()}';
 
-    //print(all_data);
+    // need to find exact the workout plan array index when nutrition plans are written done
+    var workout_plan_index = all_data.indexOf('Workout Plans');
 
-    all_data.insert(13, workout_plan_list);
+    print(all_data);
+
+    print(workout_plan_index);
+
+    var exact_place = workout_plan_index + 1;
+
+    all_data.insert(exact_place, workout_plan_list);
 
     var workout_data = all_data.join('\n');
 
@@ -197,5 +208,11 @@ class GymUser extends ManageUserInteractions {
     Workouts workouts = Workouts();
 
     workouts.viewPlans(username);
+  }
+
+  void createGoals() {
+    Goals goals = Goals();
+
+    goals.viewGoals();
   }
 }

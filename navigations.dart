@@ -184,11 +184,11 @@ class Navigations {
       GymUser user = GymUser();
 
       user.updateNutritionPlan();
-    } else if (nutrition_plan_manage == "3") {
-      GymUser user = GymUser();
+    } //else if (nutrition_plan_manage == "3") {
+    //GymUser user = GymUser();
 
-      user.getNutritionsList();
-    }
+    //user.getNutritionsList();
+    //}
 
     //Nutrition Feature Access Menu()
   }
@@ -236,7 +236,12 @@ class Navigations {
 
       user.createWorkoutPlans(user_id, w_name, body_part, sets, reps);
     } else if (workout_plan_manage == '3') {
+      print("Enter Your Database ID : ");
+      var database_id = stdin.readLineSync();
+
       GymUser user = GymUser();
+
+      user.username = database_id;
 
       user.getWorkoutList();
     }
