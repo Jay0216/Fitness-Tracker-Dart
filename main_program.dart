@@ -22,3 +22,13 @@ void main() {
 // applied poloymorphism and encapsulation concepts.
 
 // need to apply abstraction and inheritance concepts.
+
+
+// need to make user interface and expirience more better one.
+
+// and change the data file name (optional)
+
+// think the navigation menu is suitable for this application
+
+
+// need to store username in multiple classes for save data to that username's file and fetch data from that file

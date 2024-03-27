@@ -27,9 +27,19 @@ class Workouts extends ManagePlans {
       all_data.add(all_file_data);
     }
 
-    var workout_data = all_data.getRange(13, 16);
+    // find the last index of all data array
+
+    var maximum_range = all_data.length;
+
+    //print(maximum_range);
+
+    var workout_data = all_data.getRange(13, maximum_range);
 
     List<String> workout_data_array = workout_data.toList();
+
+    //print(workout_data_array);
+
+    // bug fixed in view workout plans feature
 
     workout_data_array.forEach((w_data) {
       print(w_data);
