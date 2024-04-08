@@ -53,7 +53,7 @@ class GymUser extends ManageUserInteractions {
     //when a new user signed up arrange the file area like(nutrition plans and for the workout plans)
   }
 
-  bool Login() {
+  Future<String?> Login() async {
     print("Login Feature for User");
 
     //String? username_login = stdin.readLineSync();
@@ -62,42 +62,35 @@ class GymUser extends ManageUserInteractions {
     final file_path = File(
         'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${username}.txt');
 
-    //Stream<String> read_lines = file_path.openRead().transform(utf8.decoder);
+    Stream<String> read_lines = file_path.openRead().transform(utf8.decoder);
 
     var read_data;
 
+    await for (var lines in read_lines) {
+      //print(lines);
+
+      read_data = lines;
+    }
+
     var data_array = [];
     try {
-      String readed_data = file_path.readAsStringSync();
-
-      
-
       data_array = read_data.split(" ");
 
       String file_username = data_array[0];
       String file_password = data_array[1];
 
-      if (file_username == username && file_password == _password) {
-        print("Login Success");
-        return true;
-      } else if (file_username != username && file_password != _password) {
-        print("Login Failed");
-        return false;
-      }
-      //await for (var lines in read_lines) {
-      //print(lines);
+      String? file_login_creds = '${file_username} ${file_password}';
 
-      //read_data = lines;
-      //}
+      return file_login_creds;
     } catch (e) {
       print("Your Database ID was Incorrect");
-      return false;
     }
 
     //String data_lines = read_data.toString();
   }
 
-  void createNutritionPlans(var food_name, var nutrition, var duration) async {
+  void createNutritionPlans(
+      var username, var food_name, var nutrition, var duration) async {
     print("Create a Nutrition Plan");
 
     final data_file_path = File(
@@ -193,24 +186,27 @@ class GymUser extends ManageUserInteractions {
     await data_file_path.writeAsString(workout_data);
   }
 
-  void updateNutritionPlan() {
+  void updateNutritionPlan(String? user_n) {
     print("Update Nutrition Plan");
+
+    print(user_n);
   }
 
-  void updateWorkoutPlan() {
+  void updateWorkoutPlan(String? user_id, var w_name, var body_part, var set,
+      var rep, var update_line) {
     print("Update Workout Plan");
   }
 
-  void getNutritionsList() {
+  void getNutritionsList(String? user_n) {
     Nutritions nutritions = Nutritions();
 
-    nutritions.viewPlans(username);
+    nutritions.viewPlans(user_n);
   }
 
-  void getWorkoutList() {
+  void getWorkoutList(String? user_n) {
     Workouts workouts = Workouts();
 
-    workouts.viewPlans(username);
+    workouts.viewPlans(user_n);
   }
 }
 
