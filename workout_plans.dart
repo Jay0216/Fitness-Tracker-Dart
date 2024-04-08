@@ -11,7 +11,10 @@ class Workouts extends ManagePlans {
 
   @override
   void viewPlans(String? data_id) async {
-    print("View Workouts Plans");
+    print("Viewing Your Workouts Plans");
+
+    print('');
+    print('');
 
     final data_file_path = File(
         'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${data_id}.txt');

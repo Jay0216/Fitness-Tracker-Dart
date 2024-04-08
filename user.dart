@@ -1,9 +1,10 @@
+// ignore_for_file: unused_field
+
 import 'dart:developer';
 import "dart:io";
 import "dart:math";
 import "dart:convert";
 import 'abstract_classes.dart';
-import 'goals.dart';
 import 'navigations.dart';
 import 'nutritions.dart';
 import 'workout_plans.dart';
@@ -15,53 +16,12 @@ class GymUser extends ManageUserInteractions {
   String? username;
   String? _password;
 
+  // use constructor concept for getting username
+
+  // use the login username of the file stored
+
   void setPassword(String? password) {
     _password = password;
-  }
-
-  void Login() async {
-    print("Login Feature for User");
-
-    //String? username_login = stdin.readLineSync();
-    //String? password_login = stdin.readLineSync();
-
-    final file_path = File(
-        'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${username}.txt');
-
-    Stream<String> read_lines = file_path.openRead().transform(utf8.decoder);
-
-    var read_data;
-    try {
-      await for (var lines in read_lines) {
-        //print(lines);
-
-        read_data = lines;
-      }
-    } catch (e) {
-      print("Your Database ID was Incorrect");
-    }
-
-    String data_lines = read_data.toString();
-
-    var data_array = [];
-
-    data_array = data_lines.split(" ");
-
-    String file_username = data_array[0];
-    String file_password = data_array[1];
-
-    if (file_username == username && file_password == _password) {
-      print("Login Success");
-      Navigations navigations = Navigations();
-
-      navigations.userDashboardUI();
-    } else if (file_username != username && file_password != _password) {
-      print("Login Failed");
-
-      Navigations navigations = Navigations();
-
-      navigations.LoginUI();
-    }
   }
 
   void Signup() async {
@@ -93,12 +53,55 @@ class GymUser extends ManageUserInteractions {
     //when a new user signed up arrange the file area like(nutrition plans and for the workout plans)
   }
 
-  void createNutritionPlans(
-      var user_id, var food_name, var nutrition, var duration) async {
+  bool Login() {
+    print("Login Feature for User");
+
+    //String? username_login = stdin.readLineSync();
+    //String? password_login = stdin.readLineSync();
+
+    final file_path = File(
+        'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${username}.txt');
+
+    //Stream<String> read_lines = file_path.openRead().transform(utf8.decoder);
+
+    var read_data;
+
+    var data_array = [];
+    try {
+      String readed_data = file_path.readAsStringSync();
+
+      
+
+      data_array = read_data.split(" ");
+
+      String file_username = data_array[0];
+      String file_password = data_array[1];
+
+      if (file_username == username && file_password == _password) {
+        print("Login Success");
+        return true;
+      } else if (file_username != username && file_password != _password) {
+        print("Login Failed");
+        return false;
+      }
+      //await for (var lines in read_lines) {
+      //print(lines);
+
+      //read_data = lines;
+      //}
+    } catch (e) {
+      print("Your Database ID was Incorrect");
+      return false;
+    }
+
+    //String data_lines = read_data.toString();
+  }
+
+  void createNutritionPlans(var food_name, var nutrition, var duration) async {
     print("Create a Nutrition Plan");
 
     final data_file_path = File(
-        'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${user_id}.txt');
+        'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${username}.txt');
 
     ;
 
@@ -209,10 +212,14 @@ class GymUser extends ManageUserInteractions {
 
     workouts.viewPlans(username);
   }
-
-  void createGoals() {
-    Goals goals = Goals();
-
-    goals.viewGoals();
-  }
 }
+
+
+// find the changing time of the entered username
+
+
+// and think like the user all of the classes controlling
+
+// think meaningful solutions
+
+// when this user class is calling again calling the class memory will reset i think that is the problem

@@ -58,7 +58,7 @@ class Navigations {
     }
   }
 
-  void LoginUI() {
+  Future<void> LoginUI() async {
     print("Login UI");
 
     GymUser user = GymUser();
@@ -69,11 +69,25 @@ class Navigations {
     print("Enter your password : ");
     String? login_password = stdin.readLineSync();
 
-    user.username = login_username;
+    user.username = login_username!;
 
     user.setPassword(login_password);
 
-    user.Login();
+    var file_creds = await user.Login();
+
+    print(file_creds.toString());
+
+    String input_creds = '${login_username} ${login_password}';
+
+    if (input_creds == file_creds.toString()) {
+      print('Login Success');
+
+      userDashboardUI(user.username);
+    } else {
+      print('Login Failed');
+
+      LoginUI();
+    }
   }
 
   void SignupUI() {
@@ -94,7 +108,7 @@ class Navigations {
     String? age = stdin.readLineSync();
 
     user.name = name;
-    user.username = signup_username;
+    user.username = signup_username!;
     user.age = age;
 
     user.setPassword(signup_password);
@@ -102,17 +116,19 @@ class Navigations {
     user.Signup();
   }
 
-  void userDashboardUI() {
+  void userDashboardUI(String? username) {
     print("");
+
+    print('Hello ${username}');
     print("User Menu Portal");
 
     var user_menu = [
       "1. Create a Workout Plan",
-      "2. Set Fitness Goals",
-      "3. Add a Nutrition List",
-      "4. View your Goals",
-      "5. View your Nutritions",
-      "6. Your Current Workout Plan"
+      "2. Add a Nutrition List",
+      "3. View your Nutritions",
+      "4. Your Current Workout Plan",
+      "5. Update Your Nutritions",
+      "6. Update Your Workout Plan"
     ];
 
     for (var menu in user_menu) {
@@ -124,67 +140,45 @@ class Navigations {
     String? gym_user_choice = stdin.readLineSync();
 
     if (gym_user_choice == "1") {
-      WorkoutUI();
-    } else if (gym_user_choice == "3") {
-      NutritionUI();
+      addWorkoutUI(username);
     } else if (gym_user_choice == "2") {
-      GoalsUI();
+      addNutritionUI(username);
+    } else if (gym_user_choice == '3') {
+      viewNutritionsUI(username);
+    } else if (gym_user_choice == '4') {
+      viewWorkoutUI(username);
+    } else if (gym_user_choice == '5') {
+      updateNutritionsUI(username);
+    } else if (gym_user_choice == '6') {
+      updateWorkoutUI(username);
     }
   }
 
-  void NutritionUI() async {
-    print("Your Nutritions is Here");
-
-    var nutrition_menu = [
-      "1. Add New Nutritions.",
-      "2. Update Nutritions List",
-      "3. View Nutrition Existing Plans"
-    ];
-
-    for (var n_menu in nutrition_menu) {
-      print(n_menu);
-    }
+  void addNutritionUI(String? username) async {
+    print("Add Your Nutritions");
 
     print("");
 
-    print("What do you want to do : ");
-    String? nutrition_plan_manage = stdin.readLineSync();
+    GymUser user = GymUser();
 
-    if (nutrition_plan_manage == "3") {
-      print("");
-      print("Enter Your Database ID : ");
-      var database_id = stdin.readLineSync();
+    print("");
+    print("Enter Food Name : ");
+    var food_name = stdin.readLineSync();
 
-      GymUser user = GymUser();
+    print("");
+    print("Enter Nutrition Name : ");
+    var nutrition_name = stdin.readLineSync();
 
-      user.username = database_id;
+    print("");
+    print("Enter Duration of the Plan : ");
+    var duration = stdin.readLineSync();
 
-      user.getNutritionsList();
-    } else if (nutrition_plan_manage == "1") {
-      GymUser user = GymUser();
+    print("");
+    //print("Verify your username : ");
+    //var user_id = stdin.readLineSync();
 
-      print("");
-      print("Enter Food Name : ");
-      var food_name = stdin.readLineSync();
-
-      print("");
-      print("Enter Nutrition Name : ");
-      var nutrition_name = stdin.readLineSync();
-
-      print("");
-      print("Enter Duration of the Plan : ");
-      var duration = stdin.readLineSync();
-
-      print("");
-      print("Verify your username : ");
-      var user_id = stdin.readLineSync();
-
-      user.createNutritionPlans(user_id, food_name, nutrition_name, duration);
-    } else if (nutrition_plan_manage == "2") {
-      GymUser user = GymUser();
-
-      user.updateNutritionPlan();
-    } //else if (nutrition_plan_manage == "3") {
+    user.createNutritionPlans(username, food_name, nutrition_name, duration);
+    //else if (nutrition_plan_manage == "3") {
     //GymUser user = GymUser();
 
     //user.getNutritionsList();
@@ -193,61 +187,100 @@ class Navigations {
     //Nutrition Feature Access Menu()
   }
 
-  void WorkoutUI() {
-    print("This is your Workout plan");
-
-    var workout_menu = [
-      "1. Add New Workout Plans.",
-      "2. Update Workout Plans",
-      "3. View Existing Workout Plans"
-    ];
-
-    for (var w_menu in workout_menu) {
-      print(w_menu);
-    }
+  void updateNutritionsUI(String? user_n) {
+    print("Update Your Nutritions");
 
     print("");
 
-    print("What do you want to do : ");
-    String? workout_plan_manage = stdin.readLineSync();
+    GymUser user = GymUser();
 
-    if (workout_plan_manage == '1') {
-      GymUser user = GymUser();
+    print("");
+    print("Enter Food Name : ");
+    var food_name = stdin.readLineSync();
 
-      print("");
-      print("Enter Workout Plan Name : ");
-      var w_name = stdin.readLineSync();
+    print("");
+    print("Enter Nutrition Name : ");
+    var nutrition_name = stdin.readLineSync();
 
-      print("");
-      print("Enter Body Part Name : ");
-      var body_part = stdin.readLineSync();
+    print("");
+    print("Enter Duration of the Plan : ");
+    var duration = stdin.readLineSync();
 
-      print("");
-      print("Enter Sets of Plan : ");
-      var sets = stdin.readLineSync();
+    print("");
+    //print("Verify your username : ");
+    //var user_id = stdin.readLineSync();
 
-      print("");
-      print("Enter Reps of Plan : ");
-      var reps = stdin.readLineSync();
-
-      print("");
-      print("Verify your username : ");
-      var user_id = stdin.readLineSync();
-
-      user.createWorkoutPlans(user_id, w_name, body_part, sets, reps);
-    } else if (workout_plan_manage == '3') {
-      print("Enter Your Database ID : ");
-      var database_id = stdin.readLineSync();
-
-      GymUser user = GymUser();
-
-      user.username = database_id;
-
-      user.getWorkoutList();
-    }
+    user.updateNutritionPlan(user_n);
   }
 
-  void GoalsUI() {
-    print("This is Your Goals List");
+  void addWorkoutUI(String? user_id) {
+    print("Add your Workout plan");
+
+    print("");
+
+    GymUser user = GymUser();
+
+    print("");
+    print("Enter Workout Plan Name : ");
+    var w_name = stdin.readLineSync();
+
+    print("");
+    print("Enter Body Part Name : ");
+    var body_part = stdin.readLineSync();
+
+    print("");
+    print("Enter Sets of Plan : ");
+    var sets = stdin.readLineSync();
+
+    print("");
+    print("Enter Reps of Plan : ");
+    var reps = stdin.readLineSync();
+
+    user.createWorkoutPlans(user_id, w_name, body_part, sets, reps);
+  }
+
+  void updateWorkoutUI(String? user_n) {
+    print('update your workout plan');
+
+    GymUser user = GymUser();
+
+    print("");
+
+    print("");
+    print("Select Update Line : ");
+    String? update_line_string = stdin.readLineSync();
+    int update_line = int.parse(update_line_string!);
+
+    print("Enter Workout Plan Name : ");
+    var w_name = stdin.readLineSync();
+
+    print("");
+    print("Enter Body Part Name : ");
+    var body_part = stdin.readLineSync();
+
+    print("");
+    print("Enter Sets of Plan : ");
+    var sets = stdin.readLineSync();
+
+    print("");
+    print("Enter Reps of Plan : ");
+    var reps = stdin.readLineSync();
+
+    user.updateWorkoutPlan(user_n, w_name, body_part, sets, reps, update_line);
+  }
+
+  void viewNutritionsUI(String? user_n) {
+    GymUser user = GymUser();
+
+    user.getNutritionsList(user_n);
+  }
+
+  void viewWorkoutUI(String? user_id) {
+    GymUser user = GymUser();
+
+    user.getWorkoutList(user_id);
   }
 }
+
+
+// you need to first show the already added workout data then add input fields

@@ -1,10 +1,27 @@
+import 'dart:io';
 import 'navigations.dart';
+import 'user.dart';
 
 void main() {
   Navigations navigations = Navigations();
 
   navigations.mainUI();
 }
+
+
+
+
+
+
+
+
+// add to the main menu all of the options and if select a option appear a screen for login
+
+
+
+
+
+
 
 
 
@@ -32,3 +49,11 @@ void main() {
 
 
 // need to store username in multiple classes for save data to that username's file and fetch data from that file
+
+
+// you need to add proper navigation menu.
+
+
+// think think what way you to need to solve this username store issue. 
+
+// you can found solution.
