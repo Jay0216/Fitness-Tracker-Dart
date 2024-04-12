@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'nutritions.dart';
 import 'user.dart';
@@ -192,9 +193,12 @@ class Navigations {
 
     print("");
 
-    GymUser user = GymUser();
-
     print("");
+
+    print("Select Update Line : ");
+    String? update_line_string = stdin.readLineSync();
+    int update_line = int.parse(update_line_string!);
+
     print("Enter Food Name : ");
     var food_name = stdin.readLineSync();
 
@@ -206,11 +210,10 @@ class Navigations {
     print("Enter Duration of the Plan : ");
     var duration = stdin.readLineSync();
 
-    print("");
-    //print("Verify your username : ");
-    //var user_id = stdin.readLineSync();
+    GymUser user = GymUser();
 
-    user.updateNutritionPlan(user_n);
+    user.updateNutritionPlan(
+        user_n, food_name, nutrition_name, duration, update_line);
   }
 
   void addWorkoutUI(String? user_id) {
@@ -239,10 +242,34 @@ class Navigations {
     user.createWorkoutPlans(user_id, w_name, body_part, sets, reps);
   }
 
-  void updateWorkoutUI(String? user_n) {
+  void updateWorkoutUI(String? user_n) async {
     print('update your workout plan');
 
-    GymUser user = GymUser();
+    print("Update Workout Plan");
+
+    final data_file_path = File(
+        'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${user_n}.txt');
+
+    Stream<String?> readed_content = data_file_path
+        .openRead()
+        .transform(utf8.decoder)
+        .transform(LineSplitter());
+
+    List<String?> all_data_arr = [];
+
+    await for (final all_data in readed_content) {
+      all_data_arr.add(all_data);
+    }
+
+    var max_ar_length = all_data_arr.length;
+
+    var workout_data = all_data_arr.getRange(13, max_ar_length);
+
+    List<String?> workout_data_ar = workout_data.toList();
+
+    for (var workout_data in workout_data_ar) {
+      print(workout_data);
+    }
 
     print("");
 
@@ -252,19 +279,22 @@ class Navigations {
     int update_line = int.parse(update_line_string!);
 
     print("Enter Workout Plan Name : ");
-    var w_name = stdin.readLineSync();
+    String? w_name = stdin.readLineSync();
 
     print("");
     print("Enter Body Part Name : ");
-    var body_part = stdin.readLineSync();
+    String? body_part = stdin.readLineSync();
 
     print("");
     print("Enter Sets of Plan : ");
-    var sets = stdin.readLineSync();
+    String? sets = stdin.readLineSync();
 
-    print("");
+    //print("");
+
     print("Enter Reps of Plan : ");
-    var reps = stdin.readLineSync();
+    String? reps = stdin.readLineSync();
+
+    GymUser user = GymUser();
 
     user.updateWorkoutPlan(user_n, w_name, body_part, sets, reps, update_line);
   }
@@ -284,3 +314,6 @@ class Navigations {
 
 
 // you need to first show the already added workout data then add input fields
+
+
+// problem is the workout data is getting form a file that takes time that is i think a problem

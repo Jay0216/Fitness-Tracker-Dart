@@ -186,15 +186,141 @@ class GymUser extends ManageUserInteractions {
     await data_file_path.writeAsString(workout_data);
   }
 
-  void updateNutritionPlan(String? user_n) {
+  void updateNutritionPlan(String? user_n, var food_name, var nutrition,
+      var duration, var update_line) async {
     print("Update Nutrition Plan");
+
+    final data_file_path = File(
+        'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${user_n}.txt');
+
+    Stream<String?> readed_content = data_file_path
+        .openRead()
+        .transform(utf8.decoder)
+        .transform(LineSplitter());
+
+    List<String?> all_data_arr = [];
+
+    await for (final all_data in readed_content) {
+      all_data_arr.add(all_data);
+    }
+
+    //var max_ar_length = all_data_arr.length;
+
+    var nutrition_data = all_data_arr.getRange(7, 11);
+
+    List<String?> nutrition_data_ar = nutrition_data.toList();
+
+    var exact_update_line = update_line - 1;
+
+    print("Update Line Selected ${nutrition_data_ar[exact_update_line]}");
+
+    String? selected_line = nutrition_data_ar[exact_update_line];
+
+    var updated_line = nutrition_data_ar.remove(selected_line);
+
+    String up_content = '${food_name} ${nutrition} ${duration}';
+
+    var updated_content =
+        nutrition_data_ar.insert(exact_update_line, up_content);
+
+    print(nutrition_data_ar);
+
+    print(all_data_arr);
+
+    //var workout_plan_index = all_data_arr.indexOf('Workout Plans');
+
+    //var exact_index_to_remove = workout_plan_index + 1;
+
+    //List<String?> all_data_range =
+    //all_data_arr.getRange(0, exact_index_to_remove).toList();
+
+    //print(all_data_range);
+
+    //List<String?> updated_content_ar = all_data_range + nutrition_data_ar;
+
+    //print(updated_content_ar);
+
+    //var updated_workout_data = updated_content_ar.join('\n');
+
+    //await data_file_path.writeAsString(updated_workout_data);
 
     print(user_n);
   }
 
   void updateWorkoutPlan(String? user_id, var w_name, var body_part, var set,
-      var rep, var update_line) {
+      var rep, var update_line) async {
     print("Update Workout Plan");
+
+    final data_file_path = File(
+        'N:/Dart Projects/Fiteness Tracker/Fitness-Tracker-Dart/Database/${user_id}.txt');
+
+    Stream<String?> readed_content = data_file_path
+        .openRead()
+        .transform(utf8.decoder)
+        .transform(LineSplitter());
+
+    List<String?> all_data_arr = [];
+
+    await for (final all_data in readed_content) {
+      all_data_arr.add(all_data);
+    }
+
+    var max_ar_length = all_data_arr.length;
+
+    var workout_data = all_data_arr.getRange(13, max_ar_length);
+
+    List<String?> workout_data_ar = workout_data.toList();
+
+    var exact_update_line = update_line - 1;
+
+    print("Update Line Selected ${workout_data_ar[exact_update_line]}");
+
+    String? selected_line = workout_data_ar[exact_update_line];
+
+    var updated_line = workout_data_ar.remove(selected_line);
+
+    String up_content = '${w_name} ${body_part} ${set} ${rep}';
+
+    var updated_content = workout_data_ar.insert(exact_update_line, up_content);
+
+    print(workout_data_ar);
+
+    print(all_data_arr);
+
+    var workout_plan_index = all_data_arr.indexOf('Workout Plans');
+
+    var exact_index_to_remove = workout_plan_index + 1;
+
+    List<String?> all_data_range =
+        all_data_arr.getRange(0, exact_index_to_remove).toList();
+
+    print(all_data_range);
+
+    List<String?> updated_content_ar = all_data_range + workout_data_ar;
+
+    print(updated_content_ar);
+
+    var updated_workout_data = updated_content_ar.join('\n');
+
+    await data_file_path.writeAsString(updated_workout_data);
+
+    // now combine two array together and write it to file
+
+    //var removed_array = all_data_arr.removeRange(start, end)
+
+    //String updated_data = '${w_name} ${body_part} ${set} ${rep}';
+
+    //all_data_arr.removeAt(new_line);
+
+    //all_data_arr.insert(, element)
+
+    //var updated_workout_data = workout_data_ar.join('\n');
+
+    //await data_file_path.writeAsString(updated_workout_data);
+
+    //print("Data Updated Successfully");
+
+    //print(user_id);
   }
 
   void getNutritionsList(String? user_n) {
@@ -219,3 +345,6 @@ class GymUser extends ManageUserInteractions {
 // think meaningful solutions
 
 // when this user class is calling again calling the class memory will reset i think that is the problem
+
+
+// need to add only workout data array to file

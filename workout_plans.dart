@@ -44,8 +44,12 @@ class Workouts extends ManagePlans {
 
     // bug fixed in view workout plans feature
 
-    workout_data_array.forEach((w_data) {
-      print(w_data);
-    });
+    //workout_data_array.forEach((w_data) {
+    //print(w_data);
+    //})
+
+    for (var workout_data in workout_data_array) {
+      print(workout_data);
+    }
   }
 }

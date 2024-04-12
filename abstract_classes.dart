@@ -12,7 +12,8 @@ abstract class ManageUserInteractions {
   void createNutritionPlans(
       var username, var food_name, var nutrition, var duration);
 
-  void updateNutritionPlan(String? user_id);
+  void updateNutritionPlan(String? user_n, var food_name, var nutrition,
+      var duration, var update_line);
 
   void updateWorkoutPlan(String? user_id, var w_name, var body_part, var set,
       var rep, var update_line);
